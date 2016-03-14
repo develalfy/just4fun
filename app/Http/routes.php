@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -27,11 +23,11 @@ Route::get('/', function () {
 */
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
+    Route::get('media', ['as' => 'media.get_list', 'uses' => 'AdminController@getListMedia']);
     Route::get('media/add', ['as' => 'media.get_add', 'uses' => 'AdminController@getAddMedia']);
     Route::post('media/add', ['as' => 'media.post_add', 'uses' => 'AdminController@postAddMedia']);
 });
 
-
-Route::group(['middleware' => ['web']], function () {
-    //
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
 });

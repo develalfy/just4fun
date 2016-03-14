@@ -10,8 +10,8 @@
 <div id="container">
 
 	<div class="header">
-		<a href="">user</a>
-		<a href="">logout</a>
+		<a href="#">{{ Auth::user()->email }}</a>
+		<a href="{{ url('logout') }}">logout</a>
 	</div>
 	<div class="nav-left">
 		<ul>
