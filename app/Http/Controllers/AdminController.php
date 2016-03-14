@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Core\Entity\Getters;
+use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
@@ -38,9 +39,20 @@ class AdminController extends Controller
                 ->withInput();
         }
 
+        $media = new Media();
 
+        $media->url = $request->url;
+        $media->title = $request->title;
+        $media->thumb = $request->thumb;
+        $media->category_id = $request->category_id;
+        $media->site_name = $request->site_name;
+        $media->publish_date_time = $request->publish_date_time;
+        $media->meta_tags = $request->meta_tags;
 
-        dd($request);
+        // todo: change 1 to session user now
+        $media->user_id = 1;
+
+        $media->save();
 
         return redirect()->route('media.get_add');
     }
