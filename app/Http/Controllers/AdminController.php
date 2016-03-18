@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Core\Entity\Getters;
 use App\Media;
+use App\Seo;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -24,7 +25,7 @@ class AdminController extends Controller
     public function getListMedia()
     {
         $allMedia = Media::all()->toArray();
-        foreach($allMedia as $key => $media){
+        foreach ($allMedia as $key => $media) {
             $category = Category::find($media['category_id']);
             $allMedia[$key]['category'] = $category->name;
         }
@@ -88,4 +89,62 @@ class AdminController extends Controller
         return redirect()->route('media.get_list');
     }
 
+    public function getSeo()
+    {
+        $seoModel = new Seo;
+        $seo = $seoModel::all()->first();
+        if (empty($seo)) {
+            return view('admin.add_seo');
+        }
+        return view('admin.add_seo', compact('seo'));
+    }
+
+    public function postSeo(Request $request)
+    {
+        $rules = [
+            'seoMeta' => 'required',
+            'seoKeyWords' => 'required',
+            'seoTitle' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()
+                ->route('seo.get_add')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $seoModel = new Seo;
+        $seo = $seoModel::all()->first();
+        if (!empty($seo)) {
+            Seo::where('id', $seo->id)
+                ->update([
+                    'meta_description' => $request->seoMeta,
+                    'keywords' => $request->seoKeyWords,
+                    'title' => $request->seoTitle
+                ]);
+        } else {
+            $seoModel = new Seo;
+            $seoModel->meta_description = $request->seoMeta;
+            $seoModel->keywords = $request->seoKeyWords;
+            $seoModel->title = $request->seoTitle;
+            $seoModel->save();
+        }
+        return redirect()->route('seo.get_add');
+    }
+
+    public function getAds()
+    {
+        $adsModel = new Seo;
+        $ads = $adsModel::all()->first();
+        if (empty($ads)) {
+            return view('admin.add_ads');
+        }
+        return view('admin.add_ads', compact('ads'));
+    }
+
+    public function postAds(Request $request)
+    {
+
+    }
 }

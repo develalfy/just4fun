@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seo extends Model
 {
+    public $table = "seo";
+
     public $timestamps = false;
     /**
      * The attributes that are mass assignable.
