@@ -1,66 +1,44 @@
-@extends('layouts.app')
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Just 4 mar7</title>
+	<link rel="stylesheet" href="{{ asset('backend/css/style.css') }}">
+</head>
+<body>
+<div id="login-container">
+	<div class="logo"><img src="{{ asset('backend/image/logo.png') }}" alt=""></div>
+	<div class="form">
+		<ul>
+			<form method="POST" action="{{ url('/login') }}">
+				{!! csrf_field() !!}
+				<li>
+					<label>E-mail</label>
+					<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-                        {!! csrf_field() !!}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
+					@if ($errors->has('email'))
+						<span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
+					@endif
+				</li>
+				<li>
+					<label>Password</label>
+					<input type="password" class="form-control" name="password">
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
+					@if ($errors->has('password'))
+						<span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i>Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+					@endif
+				</li>
+				<li>
+					<a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+					<input type="submit" value="Login" class="submit-btn">
+				</li>
+			</form>
+		</ul>
+	</div>
 </div>
-@endsection
+</body>
+</html>

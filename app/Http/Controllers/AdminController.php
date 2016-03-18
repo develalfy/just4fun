@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Core\Entity\Getters;
 use App\Media;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
@@ -21,7 +23,12 @@ class AdminController extends Controller
      */
     public function getListMedia()
     {
-        return view('admin.list_media');
+        $allMedia = Media::all()->toArray();
+        foreach($allMedia as $key => $media){
+            $category = Category::find($media['category_id']);
+            $allMedia[$key]['category'] = $category->name;
+        }
+        return view('admin.list_media', compact('allMedia'));
     }
 
     /**
@@ -62,12 +69,23 @@ class AdminController extends Controller
         $media->site_name = $request->site_name;
         $media->publish_date_time = $request->publish_date_time;
         $media->meta_tags = $request->meta_tags;
+        $media->user_id = Auth::user()->id;
 
-        // todo: change 1 to session user now
-        $media->user_id = 1;
 
         $media->save();
 
         return redirect()->route('media.get_add');
     }
+
+    public function deleteMedia($id)
+    {
+        $model = Media::find($id);
+        if (!$model) {
+            return '<h1>No media found!</h1>';
+        }
+        Media::destroy($id);
+
+        return redirect()->route('media.get_list');
+    }
+
 }

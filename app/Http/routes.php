@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
     Route::get('media', ['as' => 'media.get_list', 'uses' => 'AdminController@getListMedia']);
     Route::get('media/add', ['as' => 'media.get_add', 'uses' => 'AdminController@getAddMedia']);
     Route::post('media/add', ['as' => 'media.post_add', 'uses' => 'AdminController@postAddMedia']);
+    Route::get('media/delete/{id}', ['as' => 'media.delete', 'uses' => 'AdminController@deleteMedia']);
 });
 
 Route::group(['middleware' => 'web'], function () {
