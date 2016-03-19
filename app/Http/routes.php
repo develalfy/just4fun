@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
     Route::post('seo', ['as' => 'seo.post_add', 'uses' => 'AdminController@postSeo']);
     Route::get('ads', ['as' => 'ads.get_add', 'uses' => 'AdminController@getAds']);
     Route::post('ads', ['as' => 'ads.post_add', 'uses' => 'AdminController@postAds']);
+    Route::get('users', ['as' => 'users.get_list', 'uses' => 'AdminController@getUsers']);
 });
 
 Route::group(['middleware' => 'web'], function () {

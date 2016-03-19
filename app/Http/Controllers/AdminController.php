@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Ads;
 use App\Category;
 use App\Core\Entity\Getters;
 use App\Media;
 use App\Seo;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Intervention\Image\ImageManagerStatic as Image;
 use Validator;
 
 class AdminController extends Controller
@@ -135,16 +138,111 @@ class AdminController extends Controller
 
     public function getAds()
     {
-        $adsModel = new Seo;
+        $categories = Category::all();
+        $adsModel = new Ads;
         $ads = $adsModel::all()->first();
         if (empty($ads)) {
-            return view('admin.add_ads');
+            return view('admin.add_ads', compact('categories'));
         }
-        return view('admin.add_ads', compact('ads'));
+        return view('admin.add_ads', compact('ads', 'categories'));
     }
 
     public function postAds(Request $request)
     {
+        list($adsUpdateCheck, $rules) = $this->checkAdsOld();
 
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()
+                ->route('ads.get_add')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // todo: Refactoring
+        $valuesToUpdate = [
+            "code_top" => $request->top_code,
+            "code_aside" => $request->aside_code,
+            "category_id" => $request->category_id
+        ];
+
+        if($request->file('top_image')){
+            $topImg = $this->uploadImage($request->file('top_image'), 'top');
+            $valuesToUpdate["image_top"] = $topImg;
+        }
+        if($request->file('aside_image')){
+            $asideImg = $this->uploadImage($request->file('aside_image'), 'aside');
+            $valuesToUpdate["image_aside"] = $asideImg;
+        }
+
+        if (!empty($adsUpdateCheck)) {
+            Ads::where('id', $adsUpdateCheck->id)
+                ->update($valuesToUpdate);
+        } else {
+            $adsModel = new Ads();
+            $adsModel->code_top = $request->top_code;
+            $adsModel->code_aside = $request->aside_code;
+            $adsModel->category_id = $request->category_id;
+            if (isset($topImg)) {
+                $adsModel->image_top = $topImg;
+            }
+            if (isset($asideImg)) {
+                $adsModel->image_aside = $asideImg;
+            }
+
+            $adsModel->save();
+        }
+        return redirect()->route('ads.get_add');
+    }
+
+    public function uploadImage($image, $type)
+    {
+        $random = rand();
+        $filename = time() . '_' . $random . '.' . $image->getClientOriginalExtension();
+        $path = public_path('uploads/' . $filename);
+
+        Image::configure(array('driver' => 'gd'));
+        if ($type == 'top') {
+            Image::make($image->getRealPath())->resize(728, 90)->save($path);
+        } elseif ($type == 'aside') {
+            Image::make($image->getRealPath())->resize(300, 600)->save($path);
+        }
+
+        return $filename;
+    }
+
+    /**
+     * @return array
+     */
+    public function checkAdsOld()
+    {
+        $adsModel = new Ads();
+        $ads = $adsModel::all()->first();
+        if (!empty($ads)) {
+            $rules = [
+                // Update record -> rules
+                'category_id' => 'required',
+                'top_code' => 'required',
+                'aside_code' => 'required',
+                'top_image' => 'image',
+                'aside_image' => 'image',
+            ];
+        } else {
+            // Make new record -> rules
+            $rules = [
+                'category_id' => 'required',
+                'top_code' => 'required',
+                'aside_code' => 'required',
+                'top_image' => 'required|image',
+                'aside_image' => 'required|image',
+            ];
+        }
+        return array($ads, $rules);
+    }
+
+    public function getUsers()
+    {
+        $users = User::all(['id', 'email', 'role'])->where('role', 1);
+        return view('admin.add_ads', compact('ads', 'categories'));;
     }
 }

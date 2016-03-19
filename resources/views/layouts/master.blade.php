@@ -15,16 +15,16 @@
 	</div>
 	<div class="nav-left">
 		<ul>
-			<li class="media-a"><a href="{{ url('admin/all_media') }}"><img src="{{ url('backend/image/media.png') }}" alt="media">
+			<li class="{{ Request::is('admin/media') ? 'media-a' : '' }}"><a href="{{ url('admin/media') }}"><img src="{{ url('backend/image/media.png') }}" alt="media">
 
 					<p>MEDIA</p></a></li>
-			<li class="seo"><a href="{{ url('admin/seo') }}"><img src="{{ url('backend/image/seo.png') }}" alt="seo">
+			<li class="{{ Request::is('admin/seo') ? 'media-a' : '' }}"><a href="{{ url('admin/seo') }}"><img src="{{ url('backend/image/seo.png') }}" alt="seo">
 
 					<p>SEO</p></a></li>
-			<li class="ads"><a href="{{ url('admin/ads') }}"><img src="{{ url('backend/image/ads.png') }}" alt="ads">
+			<li class="{{ Request::is('admin/ads') ? 'media-a' : '' }}"><a href="{{ url('admin/ads') }}"><img src="{{ url('backend/image/ads.png') }}" alt="ads">
 
 					<p>MANGE ADS</p></a></li>
-			<li class="users"><a href="{{ url('admin/users') }}"><img src="{{ url('backend/image/users.png') }}" alt="users">
+			<li class="{{ Request::is('admin/users') ? 'media-a' : '' }}"><a href="{{ url('admin/users') }}"><img src="{{ url('backend/image/users.png') }}" alt="users">
 
 					<p>USERS</p></a></li>
 		</ul>
