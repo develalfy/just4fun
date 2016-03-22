@@ -23,6 +23,7 @@
 */
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
+    Route::auth();
     Route::get('media', ['as' => 'media.get_list', 'uses' => 'AdminController@getListMedia']);
     Route::get('media/add', ['as' => 'media.get_add', 'uses' => 'AdminController@getAddMedia']);
     Route::post('media/add', ['as' => 'media.post_add', 'uses' => 'AdminController@postAddMedia']);
@@ -32,8 +33,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
     Route::get('ads', ['as' => 'ads.get_add', 'uses' => 'AdminController@getAds']);
     Route::post('ads', ['as' => 'ads.post_add', 'uses' => 'AdminController@postAds']);
     Route::get('users', ['as' => 'users.get_list', 'uses' => 'AdminController@getUsers']);
+    Route::get('user/add', ['as' => 'users.get_add', 'uses' => 'AdminController@getAddUser']);
+    Route::post('user/add', ['as' => 'users.post_add', 'uses' => 'AdminController@postAddUser']);
+    Route::get('users/delete/{id}', ['as' => 'users.delete', 'uses' => 'AdminController@deleteUser']);
 });
 
 Route::group(['middleware' => 'web'], function () {
-    Route::auth();
+    Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
+    Route::get('home/{type}', ['as' => 'home.type', 'uses' => 'HomeController@singlePage']);
 });

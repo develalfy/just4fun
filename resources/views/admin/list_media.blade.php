@@ -19,7 +19,7 @@
 			</select>
 		</div>
 		<div class="all-media-content">
-			<a href="{{ url('media/add') }}">Add New Media</a>
+			<a href="{{ url('admin/media/add') }}">Add New Media</a>
 			{{--TODO: Sorting by category--}}
 			<ul id="cat_elements">
 				@foreach($allMedia as $media)

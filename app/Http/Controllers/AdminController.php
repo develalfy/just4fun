@@ -166,11 +166,11 @@ class AdminController extends Controller
             "category_id" => $request->category_id
         ];
 
-        if($request->file('top_image')){
+        if ($request->file('top_image')) {
             $topImg = $this->uploadImage($request->file('top_image'), 'top');
             $valuesToUpdate["image_top"] = $topImg;
         }
-        if($request->file('aside_image')){
+        if ($request->file('aside_image')) {
             $asideImg = $this->uploadImage($request->file('aside_image'), 'aside');
             $valuesToUpdate["image_aside"] = $asideImg;
         }
@@ -243,6 +243,52 @@ class AdminController extends Controller
     public function getUsers()
     {
         $users = User::all(['id', 'email', 'role'])->where('role', 1);
-        return view('admin.add_ads', compact('ads', 'categories'));;
+        return view('admin.list_users', compact('users'));
+    }
+
+
+    public function getAddUser()
+    {
+        return view('admin.add_user');
+    }
+
+
+    public function postAddUser(Request $request)
+    {
+        $rules = [
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()
+                ->route('users.get_add')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $user = new User();
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->role = 1;
+        $user->save();
+
+        return redirect()->route('users.get_list');
+    }
+
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return '<h1>No user found!</h1>';
+        }
+
+        // delete only admins but not the main one
+        if($user->role != 0){
+            User::destroy($id);
+        }
+
+        return redirect()->route('users.get_list');
     }
 }
