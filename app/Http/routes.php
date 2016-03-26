@@ -22,23 +22,38 @@
 |
 */
 
+
 Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
-    Route::auth();
-    Route::get('media', ['as' => 'media.get_list', 'uses' => 'AdminController@getListMedia']);
-    Route::get('media/add', ['as' => 'media.get_add', 'uses' => 'AdminController@getAddMedia']);
-    Route::post('media/add', ['as' => 'media.post_add', 'uses' => 'AdminController@postAddMedia']);
-    Route::get('media/delete/{id}', ['as' => 'media.delete', 'uses' => 'AdminController@deleteMedia']);
-    Route::get('seo', ['as' => 'seo.get_add', 'uses' => 'AdminController@getSeo']);
-    Route::post('seo', ['as' => 'seo.post_add', 'uses' => 'AdminController@postSeo']);
-    Route::get('ads', ['as' => 'ads.get_add', 'uses' => 'AdminController@getAds']);
-    Route::post('ads', ['as' => 'ads.post_add', 'uses' => 'AdminController@postAds']);
-    Route::get('users', ['as' => 'users.get_list', 'uses' => 'AdminController@getUsers']);
-    Route::get('user/add', ['as' => 'users.get_add', 'uses' => 'AdminController@getAddUser']);
-    Route::post('user/add', ['as' => 'users.post_add', 'uses' => 'AdminController@postAddUser']);
-    Route::get('users/delete/{id}', ['as' => 'users.delete', 'uses' => 'AdminController@deleteUser']);
+
+    Route::group(['prefix' => 'media'], function () {
+        Route::get('/', ['as' => 'media.get_list', 'uses' => 'AdminController@getListMedia']);
+        Route::get('add', ['as' => 'media.get_add', 'uses' => 'AdminController@getAddMedia']);
+        Route::post('add', ['as' => 'media.post_add', 'uses' => 'AdminController@postAddMedia']);
+        Route::get('delete/{id}', ['as' => 'media.delete', 'uses' => 'AdminController@deleteMedia']);
+    });
+
+    Route::group(['prefix' => 'seo'], function () {
+        Route::get('/', ['as' => 'seo.get_add', 'uses' => 'AdminController@getSeo']);
+        Route::post('/', ['as' => 'seo.post_add', 'uses' => 'AdminController@postSeo']);
+    });
+
+    Route::group(['prefix' => 'ads'], function () {
+        Route::get('/', ['as' => 'ads.get_add', 'uses' => 'AdminController@getAds']);
+        Route::post('/', ['as' => 'ads.post_add', 'uses' => 'AdminController@postAds']);
+    });
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', ['as' => 'users.get_list', 'uses' => 'AdminController@getUsers']);
+        Route::get('add', ['as' => 'users.get_add', 'uses' => 'AdminController@getAddUser']);
+        Route::post('add', ['as' => 'users.post_add', 'uses' => 'AdminController@postAddUser']);
+        Route::get('delete/{id}', ['as' => 'users.delete', 'uses' => 'AdminController@deleteUser']);
+    });
+
 });
 
 Route::group(['middleware' => 'web'], function () {
+    Route::auth();
     Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('home/{type}', ['as' => 'home.type', 'uses' => 'HomeController@singlePage']);
+    Route::get('home/view/{id}', ['as' => 'home.view_media', 'uses' => 'HomeController@viewMedia']);
 });

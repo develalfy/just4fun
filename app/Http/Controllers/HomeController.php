@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Ads;
 use App\Category;
+use App\Core\Entity\Getters;
 use App\Http\Requests;
 use App\Media;
 use Illuminate\Http\Request;
+
 
 class HomeController extends Controller
 {
@@ -15,7 +18,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -35,27 +37,33 @@ class HomeController extends Controller
         if ($type == 'top') {
             $media = Media::orderBy('views', 'desc')
                 ->paginate(20);
+            $ads = Getters::getAds(null);
         } else {
             $category = Category::where('name', '=', $type)->first();
             if (!$category) {
                 return redirect()->route('home');
             }
-            $media = $this->getMediaByCategory($category->id);
+            list($media, $ads) = Getters::getDataByCategory($category->id);
         }
 
-        return view('user.single_page');
+        $categoryName = Getters::getCategoryName($type);
+
+        return view('user.single_page', compact('media', 'ads', 'categoryName'));
     }
 
-    private function getMediaByCategory($category_id)
+    public function viewMedia($id)
     {
-        $media = Media::where('category_id', $category_id)
-            ->orderBy('id', 'desc')
-            ->paginate(20);
-        return $media;
-    }
+        $media = Media::where('id', $id)->first();
+        $media->views += 1;
+        $media->save();
+        // Get related media
+        $related = Media::where('category_id', '=', $media->category_id)
+            ->where('id', '!=', $id)
+            ->get();
 
-    private function viewPlusPlus($category)
-    {
+        $ads = Ads::where('category_id', $media->category_id)
+            ->first();
 
+        return view('user.view_media', compact('media', 'related', 'ads'));
     }
 }

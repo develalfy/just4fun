@@ -34,9 +34,22 @@
 		<div class="users">
 			<h4>Users</h4>
 			@foreach($users as $user)
-				<a href="#">{{ $user->email }}</a><a href="{{ url(route('users.delete', $user->id)) }}">delete</a>
+				<a href="#">{{ $user->email }}</a><a class="delete" href="{{ url(route('users.delete', $user->id)) }}">delete</a>
 			@endforeach
 		</div>
 	</div>
+
+
+	<script>
+		$(document).ready(function () {
+			$(document).on("click", "a.delete", function () {
+				if (confirm('Are you sure ? the user will be deleted.')) {
+					$(this).prev('span.text').remove();
+				} else {
+					return false;
+				}
+			});
+		});
+	</script>
 
 @endsection

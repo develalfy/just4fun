@@ -44,14 +44,17 @@
 				<div>
 					<h4>code ads</h4>
 
-					<textarea name="top_code" cols="40" rows="10">{{ $ads->code_top }}</textarea>
+					<textarea name="top_code" cols="40"
+					          rows="10">{{ isset($ads->code_top) ? $ads->code_top : ''}}</textarea>
 					<h4>image ads</h4>
 					<label for="image-upload" id="image-label">Choose File</label>
 					<input type="file" name="top_image" id="image-upload"/>
 
-					<div id="top-preview">
-						<img src="{{ url('uploads/'.$ads->image_top) }}" alt="">
-					</div>
+					@if(isset($ads->image_top))
+						<div id="top-preview">
+							<img src="{{ url('uploads/'.$ads->image_top) }}" alt="">
+						</div>
+					@endif
 				</div>
 
 				<h4>Add Aside ADS</h4>
@@ -59,15 +62,18 @@
 				<div>
 					<h4>code ads</h4>
 
-					<textarea name="aside_code" cols="40" rows="10">{{ $ads->code_aside }}</textarea>
+					<textarea name="aside_code" cols="40"
+					          rows="10">{{ isset($ads->code_aside) ? $ads->code_aside : ''}}</textarea>
 					<h4>image ads</h4>
 					<label for="image-upload" id="image-label">Choose File</label>
 					<input type="file" name="aside_image" id="image-upload"/>
-					<br />
+					<br/>
 
-					<div id="aside-preview">
-						<img src="{{ url('uploads/'.$ads->image_aside) }}" alt="">
-					</div>
+					@if(isset($ads->image_aside))
+						<div id="aside-preview">
+							<img src="{{ url('uploads/'.$ads->image_aside) }}" alt="">
+						</div>
+					@endif
 
 					<input type="submit" value="Publish" class="submit">
 				</div>
