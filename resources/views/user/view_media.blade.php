@@ -55,10 +55,10 @@
 							<button class="sharer button facebookbtn" data-sharer="facebook"
 							        data-url="https://www.facebook.com/sharer/sharer.php?u={{ Request::url() }}"></button>
 						</a>
-						<a href="https://twitter.com/home?status={{ Request::url() }}">
+						<a href="https://twitter.com/home?status={{ Request::url() }}" target="_blank">
 							<button class="sharer button twitterbtn" data-sharer="twitter"
 							        data-title="Checkout Sharer.js!"
-							        data-url="https://twitter.com/home?status={{ Request::url() }} target="_blank""></button>
+							        data-url="https://twitter.com/home?status={{ Request::url() }}"></button>
 						</a>
 					</div>
 				</div>
