@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>@yield('title')</title>
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/css/jquery.datetimepicker.css') }}"/>
 	<link rel="stylesheet" href="{{ asset('backend/css/style.css') }}">
 	<script type="text/javascript" src="{{ asset('backend/js/jquery-2.0.3.min.js') }}"></script>
 </head>
@@ -36,5 +37,6 @@
 
 </div>
 </body>
-
+<script src="{{ asset('backend/js/jquery.js') }}"></script>
+<script src="{{ asset('backend/js/jquery.datetimepicker.full.js') }}"></script>
 </html>

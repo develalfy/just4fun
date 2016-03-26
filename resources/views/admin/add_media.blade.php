@@ -52,9 +52,9 @@
 						<input type="text" id="site_name" name="site_name" readonly>
 						<label>Video from (youtube, vimeo, metacafe, dailymotion)</label>
 					</li>
-					<li>
-						<label>Published Date Time</label>
-						<input type="datetime" name="publish_date_time" value="{{ date("Y-m-d H:i:s") }}">
+					<li class="datetime">
+						<label>schedule video</label>
+						<input type="text" name="publish_date_time" value="{{ date("Y-m-d H:i") }}" id="datetimepicker4"/><input id="open" type="button" value="open"/><input id="close" type="button" value="close"/><input id="reset" type="button" value="reset"/>
 					</li>
 					<li>
 						<label>Video SEO</label>
