@@ -59,6 +59,7 @@ class HomeController extends Controller
         // Get related media
         $related = Media::where('category_id', '=', $media->category_id)
             ->where('id', '!=', $id)
+            ->limit(5)
             ->get();
 
         $ads = Ads::where('category_id', $media->category_id)

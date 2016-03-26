@@ -53,7 +53,7 @@ class AdminController extends Controller
         $rules = [
             'url' => 'required|url|max:255|unique:media,url',
             'category_id' => 'required',
-            'publish_date_time' => 'date_format:Y-m-d H:i:s',
+            'publish_date_time' => 'date_format:Y-m-d H:i',
             'meta_tags' => 'max:255',
         ];
         $validator = Validator::make($request->all(), $rules);
