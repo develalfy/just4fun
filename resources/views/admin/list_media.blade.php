@@ -23,7 +23,7 @@
 			{{--TODO: Sorting by category--}}
 			<ul id="cat_elements">
 				@foreach($allMedia as $media)
-					<li class="elements {{ $media['category'] }}">
+					<li class="elements {{ ucfirst($media['category']) }}">
 						<ul>
 							<li><img src="{{ $media['thumb']}}" alt="" width="300px" height="171px"></li>
 							<li class="video-name"><p>{{ $media['title'] }}</p></li>

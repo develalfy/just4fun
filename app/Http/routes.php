@@ -24,7 +24,6 @@
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
-
     Route::group(['prefix' => 'media'], function () {
         Route::get('/', ['as' => 'media.get_list', 'uses' => 'AdminController@getListMedia']);
         Route::get('add', ['as' => 'media.get_add', 'uses' => 'AdminController@getAddMedia']);
@@ -53,7 +52,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
+
     Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
-    Route::get('home/{type}', ['as' => 'home.type', 'uses' => 'HomeController@singlePage']);
-    Route::get('home/view/{id}', ['as' => 'home.view_media', 'uses' => 'HomeController@viewMedia']);
+    Route::get('/{type}', ['as' => 'home.type', 'uses' => 'HomeController@singlePage']);
+    Route::get('home/{id}', ['as' => 'home.view_media', 'uses' => 'HomeController@viewMedia']);
 });

@@ -32,6 +32,8 @@
 				</div>
 			</div>
 
+			{!! $media->render() !!}
+
 			<!-- navigation holder -->
 			<div class="holder"></div>
 		</div>

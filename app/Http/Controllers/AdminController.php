@@ -71,6 +71,7 @@ class AdminController extends Controller
         $media->thumb = $request->thumb;
         $media->category_id = $request->category_id;
         $media->site_name = $request->site_name;
+        $media->author_name = $request->author_name;
         $media->publish_date_time = $request->publish_date_time;
         $media->meta_tags = $request->meta_tags;
         $media->user_id = Auth::user()->id;
@@ -224,7 +225,7 @@ class AdminController extends Controller
                 'category_id' => 'required',
                 'top_code' => 'required',
                 'aside_code' => 'required',
-                'top_image' => 'image',
+                'top_image' => 'mimes:jpeg,jpg,,gif,bmp,png,swf',
                 'aside_image' => 'image',
             ];
         } else {

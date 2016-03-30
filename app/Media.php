@@ -13,7 +13,7 @@ class Media extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'url', 'thumb', 'site_name', 'publish_date_time', 'meta_tags', 'views', 'category_id', 'user_id',
+        'title', 'url', 'thumb', 'site_name', 'author_name', 'publish_date_time', 'meta_tags', 'views', 'category_id', 'user_id',
     ];
 
     /**

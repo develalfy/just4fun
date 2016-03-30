@@ -18,6 +18,7 @@ class CreateMediaTable extends Migration
             $table->string('url');
             $table->string('thumb');
             $table->string('site_name');
+            $table->string('author_name');
             $table->dateTime('publish_date_time');
             $table->text('meta_tags');
             $table->bigInteger('views');

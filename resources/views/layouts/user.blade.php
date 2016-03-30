@@ -27,7 +27,7 @@
 	<nav class="cd-side-navigation">
 		<ul>
 			<li>
-				<a href="{{ url('home/top') }}" {{ Request::is('home/top') || Request::is('home') ? 'class=selected' : '' }}>
+				<a href="{{ url('/top') }}" {{ Request::is('/top') || Request::is('home') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon1.png') }}" alt="اكتر فيديوهات مضحكه مشاهدة">
 
 					<p>اكتر مشاهده</p>
@@ -35,7 +35,7 @@
 			</li>
 
 			<li>
-				<a href="{{ url('home/egyptian') }}" {{ Request::is('home/egyptian') ? 'class=selected' : '' }}>
+				<a href="{{ url('/egyptian') }}" {{ Request::is('/egyptian') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon2.png') }}" alt="فيديوهات مضحكه مصريه">
 
 					<p>مصري</p>
@@ -43,7 +43,7 @@
 			</li>
 
 			<li>
-				<a href="{{ url('home/gulf') }}" {{ Request::is('home/gulf') ? 'class=selected' : '' }}>
+				<a href="{{ url('/gulf') }}" {{ Request::is('/gulf') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon3.png') }}" alt="فيديوهات مضحكه خليجي">
 
 					<p>خليجي</p>
@@ -51,28 +51,28 @@
 			</li>
 
 			<li>
-				<a href="{{ url('home/foreigners') }}" {{ Request::is('home/foreigners') ? 'class=selected' : '' }}>
+				<a href="{{ url('/foreigners') }}" {{ Request::is('/foreigners') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon4.png') }}" alt="فيديوهات مضحكه عالميه">
 
 					<p>عالمي</p>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url('home/sports') }}" {{ Request::is('home/sports') ? 'class=selected' : '' }}>
+				<a href="{{ url('/sports') }}" {{ Request::is('/sports') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon5.png') }}" alt="فيديوهات مضحكه رياضيه">
 
 					<p>رياضه</p>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url('home/kids') }}" {{ Request::is('home/kids') ? 'class=selected' : '' }}>
+				<a href="{{ url('/kids') }}" {{ Request::is('/kids') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon6.png') }}" alt="فيديوهات مضحكه للاطفال">
 
 					<p>أطفال</p>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url('home/animals') }}" {{ Request::is('home/animals') ? 'class=selected' : '' }}>
+				<a href="{{ url('/animals') }}" {{ Request::is('/animals') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon7.png') }}" alt="فيديوهات مضحكه للحيوانات">
 
 					<p>حيوانات</p>
@@ -86,7 +86,7 @@
 			<div class="cd-content" id="index-content">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="logo"><a href="{{ url('home/top') }}"><img src="{{ url('frontend/images/logo.png') }}" alt=""></a>
+						<div class="logo"><a href="{{ url('home') }}"><img src="{{ url('frontend/images/logo.png') }}" alt=""></a>
 						</div>
 						<div class="social-icon">
 							<ul>

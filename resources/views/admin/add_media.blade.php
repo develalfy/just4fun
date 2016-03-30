@@ -52,6 +52,10 @@
 						<input type="text" id="site_name" name="site_name" readonly>
 						<label>Video from (youtube, vimeo, metacafe, dailymotion)</label>
 					</li>
+					<li>
+						<input type="text" id="author_name" name="author_name" readonly>
+						<label>Author name</label>
+					</li>
 					<li class="datetime">
 						<label>schedule video</label>
 						<input type="text" name="publish_date_time" value="{{ date("Y-m-d H:i") }}" id="datetimepicker4"/><input id="open" type="button" value="open"/><input id="close" type="button" value="close"/><input id="reset" type="button" value="reset"/>
@@ -83,12 +87,13 @@
 				var finalUrl = getFinalUrl(video_url);
 
 				if (finalUrl == 'www.dailymotion.com') {
-					$.getJSON('https://api.dailymotion.com/video/xoei7t?fields=title,channel.name,thumbnail_url',
+					$.getJSON('https://api.dailymotion.com/video/x4dw0u_the-batman-s-justice-league-vs-just_shortfilms?fields=title,channel.name,thumbnail_url,owner',
 							function (data) {
 								$('#thumb').val(data.thumbnail_url);
 								$('#pic').attr('src', data.thumbnail_url);
 								$('#title').val(data.title);
 								$('#site_name').val('Dailymotion');
+								$('#author_name').val(data.owner);
 							}
 					);
 				} else {
@@ -98,6 +103,7 @@
 								$('#pic').attr('src', data.thumbnail_url);
 								$('#title').val(data.title);
 								$('#site_name').val(data.provider_name);
+								$('#author_name').val(data.author_name);
 							}
 					);
 				}
