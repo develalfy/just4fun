@@ -30,7 +30,7 @@
 							<li class="delete-media"><a class="confirm-delete"
 							                            href="{{ url(route('media.delete', $media['id'])) }}"><img
 											src="{{ url('backend/image/delete.png') }}"></a></li>
-							<li><p>{{ $media['category'] }}</p></li>
+							<li><p>{{ ucfirst($media['category']) }}</p></li>
 						</ul>
 					</li>
 				@endforeach

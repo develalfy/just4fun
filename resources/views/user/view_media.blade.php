@@ -34,6 +34,11 @@
 							<p>{{ $media->views }}</p>
 						</div>
 					</div>
+					<div class="views-num">
+						<div class="col-sm-12">
+							<p style="color: #0e0e0e">By/ {{ $media->author_name }}</p>
+						</div>
+					</div>
 				</div>
 				<div class="video-place">
 					<div class="col-sm-12">
@@ -76,7 +81,7 @@
 								@foreach($related as $relatedVideo)
 									<div class="col-sm-3">
 										<li>
-											<a href="">
+											<a href="{{ url(route('home.view_media', $relatedVideo->id)) }}">
 												<img src="{{ $relatedVideo->thumb }}" alt="{{ $relatedVideo->title }}">
 												<h4>{{ $relatedVideo->title }}</h4>
 											</a>

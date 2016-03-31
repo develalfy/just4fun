@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
         Route::get('add', ['as' => 'media.get_add', 'uses' => 'AdminController@getAddMedia']);
         Route::post('add', ['as' => 'media.post_add', 'uses' => 'AdminController@postAddMedia']);
         Route::get('delete/{id}', ['as' => 'media.delete', 'uses' => 'AdminController@deleteMedia']);
+        Route::get('json/{type}', ['as' => 'json.ads', 'uses' => 'AdminController@getAdsJson']);
     });
 
     Route::group(['prefix' => 'seo'], function () {

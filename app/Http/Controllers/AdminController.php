@@ -140,17 +140,12 @@ class AdminController extends Controller
     public function getAds()
     {
         $categories = Category::all();
-        $adsModel = new Ads;
-        $ads = $adsModel::all()->first();
-        if (empty($ads)) {
-            return view('admin.add_ads', compact('categories'));
-        }
-        return view('admin.add_ads', compact('ads', 'categories'));
+        return view('admin.add_ads', compact('categories'));
     }
 
     public function postAds(Request $request)
     {
-        list($adsUpdateCheck, $rules) = $this->checkAdsOld();
+        list($adsUpdateCheck, $rules) = $this->checkAdsOld($request->category_id);
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -213,12 +208,13 @@ class AdminController extends Controller
     }
 
     /**
+     * @param $category_id
      * @return array
      */
-    public function checkAdsOld()
+    public function checkAdsOld($category_id)
     {
         $adsModel = new Ads();
-        $ads = $adsModel::all()->first();
+        $ads = $adsModel::where('category_id', '=', $category_id)->first();
         if (!empty($ads)) {
             $rules = [
                 // Update record -> rules
@@ -226,7 +222,7 @@ class AdminController extends Controller
                 'top_code' => 'required',
                 'aside_code' => 'required',
                 'top_image' => 'mimes:jpeg,jpg,,gif,bmp,png,swf',
-                'aside_image' => 'image',
+                'aside_image' => 'mimes:jpeg,jpg,,gif,bmp,png,swf',
             ];
         } else {
             // Make new record -> rules
@@ -234,8 +230,8 @@ class AdminController extends Controller
                 'category_id' => 'required',
                 'top_code' => 'required',
                 'aside_code' => 'required',
-                'top_image' => 'required|image',
-                'aside_image' => 'required|image',
+                'top_image' => 'required|mimes:jpeg,jpg,,gif,bmp,png,swf',
+                'aside_image' => 'required|mimes:jpeg,jpg,,gif,bmp,png,swf',
             ];
         }
         return array($ads, $rules);
@@ -286,10 +282,30 @@ class AdminController extends Controller
         }
 
         // delete only admins but not the main one
-        if($user->role != 0){
+        if ($user->role != 0) {
             User::destroy($id);
         }
 
         return redirect()->route('users.get_list');
+    }
+
+
+    public function getAdsJson(Request $request)
+    {
+        $ads = Ads::leftJoin('categories', function ($join) {
+            $join->on('ads.category_id', '=', 'categories.id');
+        })->where('categories.name', strtolower($request->type))
+            ->first([
+                'ads.code_top',
+                'ads.image_top',
+                'ads.code_aside',
+                'ads.image_aside',
+            ]);
+
+        if (!$ads) {
+            return json_encode('null');
+        }
+
+        return $ads;
     }
 }
