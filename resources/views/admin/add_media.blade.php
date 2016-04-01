@@ -58,7 +58,11 @@
 					</li>
 					<li class="datetime">
 						<label>schedule video</label>
-						<input type="text" name="publish_date_time" value="{{ date("Y-m-d H:i") }}" id="datetimepicker4"/><input id="open" type="button" value="open"/><input id="close" type="button" value="close"/><input id="reset" type="button" value="reset"/>
+						<input type="text" name="publish_date_time" value="{{ date("Y-m-d H:i") }}"
+						       id="datetimepicker4"/><input id="open" type="button" value="open"/><input id="close"
+						                                                                                 type="button"
+						                                                                                 value="close"/><input
+								id="reset" type="button" value="reset"/>
 					</li>
 					<li>
 						<label>Video SEO</label>
@@ -73,40 +77,17 @@
 	<script>
 		$(document).ready(function () {
 
-			/**
-			 * Detect final URL
-			 */
-			function getFinalUrl(video_url) {
-				var a = document.createElement('a');
-				a.href = video_url;
-				return a.hostname;
-			}
-
 			$('#url').focusout(function () {
 				var video_url = $('#url').val();
-				var finalUrl = getFinalUrl(video_url);
-
-				if (finalUrl == 'www.dailymotion.com') {
-					$.getJSON('https://api.dailymotion.com/video/x4dw0u_the-batman-s-justice-league-vs-just_shortfilms?fields=title,channel.name,thumbnail_url,owner',
-							function (data) {
-								$('#thumb').val(data.thumbnail_url);
-								$('#pic').attr('src', data.thumbnail_url);
-								$('#title').val(data.title);
-								$('#site_name').val('Dailymotion');
-								$('#author_name').val(data.owner);
-							}
-					);
-				} else {
-					$.getJSON('https://noembed.com/embed',
-							{format: 'json', url: video_url}, function (data) {
-								$('#thumb').val(data.thumbnail_url);
-								$('#pic').attr('src', data.thumbnail_url);
-								$('#title').val(data.title);
-								$('#site_name').val(data.provider_name);
-								$('#author_name').val(data.author_name);
-							}
-					);
-				}
+				$.getJSON('extract',
+					{format: 'json', url: video_url}, function (data) {
+						$('#thumb').val(data.thumbnail_url);
+						$('#pic').attr('src', data.thumbnail_url);
+						$('#title').val(data.title);
+						$('#site_name').val(data.providerName);
+						$('#author_name').val(data.author_name);
+					}
+				);
 			});
 		});
 	</script>

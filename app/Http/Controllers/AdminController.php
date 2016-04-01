@@ -9,6 +9,7 @@ use App\Media;
 use App\Seo;
 use App\User;
 use Auth;
+use Essence\Essence;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -307,5 +308,22 @@ class AdminController extends Controller
         }
 
         return $ads;
+    }
+
+    public function getVideoData(Request $request)
+    {
+        if(empty($request->url)){
+            return redirect()->route('media.get_add');
+        }
+
+        $essence = new Essence();
+        $media = $essence->extract($request->url);
+
+
+        if (!$media) {
+            return redirect()->route('media.get_add');
+        }
+
+        return $media;
     }
 }
