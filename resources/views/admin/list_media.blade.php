@@ -7,6 +7,18 @@
 	<div class="content">
 		<h3>All Media</h3>
 
+		@foreach (['danger', 'warning', 'success', 'info'] as $msg)
+			@if(Session::has('alert-' . $msg))
+				<ul>
+					<p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#"
+					                                                                         class="close"
+					                                                                         data-dismiss="alert"
+					                                                                         aria-label="close">&times;</a>
+					</p>
+				</ul>
+			@endif
+		@endforeach
+
 		<div class="all-media">
 			<select id="media_category">
 				<option value="All">All</option>

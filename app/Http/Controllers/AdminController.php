@@ -59,6 +59,7 @@ class AdminController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
+            $request->session()->flash('alert-danger', 'Errors found !');
             return redirect()
                 ->route('media.get_add')
                 ->withErrors($validator)
@@ -80,17 +81,19 @@ class AdminController extends Controller
 
         $media->save();
 
+        $request->session()->flash('alert-success', 'Added successfully');
         return redirect()->route('media.get_add');
     }
 
-    public function deleteMedia($id)
+    public function deleteMedia(Request $request, $id)
     {
         $model = Media::find($id);
         if (!$model) {
-            return '<h1>No media found!</h1>';
+            $request->session()->flash('alert-success', 'Errors founded !');
         }
         Media::destroy($id);
 
+        $request->session()->flash('alert-success', 'Deleted successfully');
         return redirect()->route('media.get_list');
     }
 
@@ -113,6 +116,7 @@ class AdminController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
+            $request->session()->flash('alert-success', 'Errors Found !');
             return redirect()
                 ->route('seo.get_add')
                 ->withErrors($validator)
@@ -135,6 +139,7 @@ class AdminController extends Controller
             $seoModel->title = $request->seoTitle;
             $seoModel->save();
         }
+        $request->session()->flash('alert-success', 'Added successfully');
         return redirect()->route('seo.get_add');
     }
 
@@ -150,6 +155,7 @@ class AdminController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
+            $request->session()->flash('alert-success', 'Errors Founded !!');
             return redirect()
                 ->route('ads.get_add')
                 ->withErrors($validator)
@@ -259,6 +265,7 @@ class AdminController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
+            $request->session()->flash('alert-success', 'Errors Founded !');
             return redirect()
                 ->route('users.get_add')
                 ->withErrors($validator)
@@ -271,15 +278,16 @@ class AdminController extends Controller
         $user->role = 1;
         $user->save();
 
+        $request->session()->flash('alert-success', 'Added successfully');
         return redirect()->route('users.get_list');
     }
 
 
-    public function deleteUser($id)
+    public function deleteUser(Request $request, $id)
     {
         $user = User::find($id);
         if (!$user) {
-            return '<h1>No user found!</h1>';
+            $request->session()->flash('alert-success', 'Errors Founded !');
         }
 
         // delete only admins but not the main one
@@ -287,6 +295,7 @@ class AdminController extends Controller
             User::destroy($id);
         }
 
+        $request->session()->flash('alert-success', 'Deleted successfully');
         return redirect()->route('users.get_list');
     }
 
@@ -312,7 +321,7 @@ class AdminController extends Controller
 
     public function getVideoData(Request $request)
     {
-        if(empty($request->url)){
+        if (empty($request->url)) {
             return redirect()->route('media.get_add');
         }
 

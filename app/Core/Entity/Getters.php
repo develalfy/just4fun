@@ -12,6 +12,7 @@ namespace App\Core\Entity;
 use App\Ads;
 use App\Category;
 use App\Media;
+use Carbon\Carbon;
 
 class Getters
 {
@@ -42,6 +43,7 @@ class Getters
     static function getMediaByCategory($id)
     {
         $media = Media::where('category_id', $id)
+            ->where('publish_date_time', '<=',Carbon::now())
             ->orderBy('id', 'desc')
             ->paginate(20);
 

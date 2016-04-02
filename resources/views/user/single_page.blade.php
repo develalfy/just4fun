@@ -3,7 +3,9 @@
 
 @section('content')
 
-	@if(isset($ads->image_top))
+	@if(isset($ads->code_top))
+		{{ $ads->code_top }}
+	@else
 		<div class="col-sm-9 col-sm-9 placeholder">
 			<div class="top-ads">
 				<img src="{{ url('uploads/' . $ads->image_top ) }}" alt="">
@@ -23,9 +25,12 @@
 					<ul id="itemContainer">
 						@foreach($media as $video)
 							<div class="col-xs-6 col-sm-4 placeholder">
-								<li><a href="{{ url(route('home.view_media', $video->id)) }}"><img
+								<li>
+									<a href="{{ url(route('home.view_media', $video->id)) }}"><img
+												style="max-width:300px;max-height:171px"
 												src="{{ $video->thumb }}" class="img-responsive"
-												alt="{{ $video->title }}"><h4>{{ $video->title }}</h4></a></li>
+												alt="{{ $video->title }}"><h4>{{ $video->title }}</h4></a>
+								</li>
 							</div>
 						@endforeach
 					</ul>
@@ -34,11 +39,13 @@
 
 			{!! $media->render() !!}
 
-			<!-- navigation holder -->
+					<!-- navigation holder -->
 			<div class="holder"></div>
 		</div>
 	</div>
-	@if(isset($ads->image_aside))
+	@if(isset($ads->code_aside))
+		{{ $ads->code_aside }}
+	@else
 		<div class="col-sm-3 col-sm-3 placeholder right-ads">
 			<div id="right-ads">
 				<img src="{{ url('uploads/' . $ads->image_aside ) }}" alt="">

@@ -37,6 +37,6 @@
 
 </div>
 </body>
-<script src="{{ asset('backend/js/jquery.js') }}"></script>
+{{--<script src="{{ asset('backend/js/jquery.js') }}"></script>--}}
 <script src="{{ asset('backend/js/jquery.datetimepicker.full.js') }}"></script>
 </html>

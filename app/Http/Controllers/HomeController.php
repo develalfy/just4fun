@@ -7,6 +7,7 @@ use App\Category;
 use App\Core\Entity\Getters;
 use App\Http\Requests;
 use App\Media;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -36,6 +37,7 @@ class HomeController extends Controller
 
         if ($type == 'top') {
             $media = Media::orderBy('views', 'desc')
+                ->where('publish_date_time', '<=',Carbon::now())
                 ->paginate(20);
             $ads = Getters::getAds(null);
         } else {
@@ -53,7 +55,9 @@ class HomeController extends Controller
 
     public function viewMedia($id)
     {
-        $media = Media::where('id', $id)->first();
+        $media = Media::where('id', $id)
+            ->where('publish_date_time', '<=',Carbon::now())
+            ->first();
         $media->views += 1;
         $media->save();
         // Get related media
