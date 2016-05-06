@@ -226,8 +226,8 @@ class AdminController extends Controller
             $rules = [
                 // Update record -> rules
                 'category_id' => 'required',
-                'top_code' => 'required',
-                'aside_code' => 'required',
+                'top_code' => '',
+                'aside_code' => '',
                 'top_image' => 'mimes:jpeg,jpg,,gif,bmp,png,swf',
                 'aside_image' => 'mimes:jpeg,jpg,,gif,bmp,png,swf',
             ];
@@ -235,10 +235,10 @@ class AdminController extends Controller
             // Make new record -> rules
             $rules = [
                 'category_id' => 'required',
-                'top_code' => 'required',
-                'aside_code' => 'required',
-                'top_image' => 'required|mimes:jpeg,jpg,,gif,bmp,png,swf',
-                'aside_image' => 'required|mimes:jpeg,jpg,,gif,bmp,png,swf',
+                'top_code' => '',
+                'aside_code' => '',
+                'top_image' => 'mimes:jpeg,jpg,,gif,bmp,png,swf',
+                'aside_image' => 'mimes:jpeg,jpg,,gif,bmp,png,swf',
             ];
         }
         return array($ads, $rules);

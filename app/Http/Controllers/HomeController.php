@@ -19,6 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+
     }
 
     /**
@@ -38,8 +39,8 @@ class HomeController extends Controller
         if ($type == 'top') {
             $media = Media::orderBy('views', 'desc')
                 ->where('publish_date_time', '<=',Carbon::now())
-                ->paginate(20);
-            $ads = Getters::getAds(null);
+                ->paginate(env('VIDEO_LIMIT', 10));
+            $ads = Getters::getAds(env('MAIN_PAGE_ID', 7));
         } else {
             $category = Category::where('name', '=', $type)->first();
             if (!$category) {

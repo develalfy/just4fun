@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="{{ \App\Seo::first()->meta_description }}">
+	<meta name="keywords" content="{{ \App\Seo::first()->keywords }}">
 	<link rel="icon" href="{{ url('favicon.ico') }}" sizes="16x16">
 	<link rel="stylesheet" href="{{ asset('frontend/css/reset.css')}}"> <!-- CSS reset -->
 	<link rel="stylesheet" href="{{ asset('frontend/css/styles.css')}}"> <!-- Resource style -->
@@ -27,7 +29,7 @@
 	<nav class="cd-side-navigation">
 		<ul>
 			<li>
-				<a href="{{ url('/top') }}" {{ Request::is('/top') || Request::is('home') ? 'class=selected' : '' }}>
+				<a href="{{ url('/top') }}" {{ Request::is('top') || Request::is('home') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon1.png') }}" alt="اكتر فيديوهات مضحكه مشاهدة">
 
 					<p>اكتر مشاهده</p>
@@ -35,7 +37,7 @@
 			</li>
 
 			<li>
-				<a href="{{ url('/egyptian') }}" {{ Request::is('/egyptian') ? 'class=selected' : '' }}>
+				<a href="{{ url('/egyptian') }}" {{ Request::is('egyptian') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon2.png') }}" alt="فيديوهات مضحكه مصريه">
 
 					<p>مصري</p>
@@ -43,7 +45,7 @@
 			</li>
 
 			<li>
-				<a href="{{ url('/gulf') }}" {{ Request::is('/gulf') ? 'class=selected' : '' }}>
+				<a href="{{ url('/gulf') }}" {{ Request::is('gulf') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon3.png') }}" alt="فيديوهات مضحكه خليجي">
 
 					<p>خليجي</p>
@@ -51,28 +53,28 @@
 			</li>
 
 			<li>
-				<a href="{{ url('/foreigners') }}" {{ Request::is('/foreigners') ? 'class=selected' : '' }}>
+				<a href="{{ url('/world') }}" {{ Request::is('world') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon4.png') }}" alt="فيديوهات مضحكه عالميه">
 
 					<p>عالمي</p>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url('/sports') }}" {{ Request::is('/sports') ? 'class=selected' : '' }}>
+				<a href="{{ url('/sports') }}" {{ Request::is('sports') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon5.png') }}" alt="فيديوهات مضحكه رياضيه">
 
 					<p>رياضه</p>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url('/kids') }}" {{ Request::is('/kids') ? 'class=selected' : '' }}>
+				<a href="{{ url('/kids') }}" {{ Request::is('kids') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon6.png') }}" alt="فيديوهات مضحكه للاطفال">
 
 					<p>أطفال</p>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url('/animals') }}" {{ Request::is('/animals') ? 'class=selected' : '' }}>
+				<a href="{{ url('/animals') }}" {{ Request::is('animals') ? 'class=selected' : '' }}>
 					<img src="{{ url('frontend/images/icon7.png') }}" alt="فيديوهات مضحكه للحيوانات">
 
 					<p>حيوانات</p>

@@ -1,9 +1,9 @@
 @extends('layouts.user')
-@section('title', ' | Just4Fun')
+@section('title', " $media->title | Just4Mara7")
 
 @section('content')
 
-	@if(isset($ads->code_top))
+	@if(!empty($ads->code_top))
 		{{ $ads->code_top }}
 	@else
 		<div class="col-sm-9 col-sm-9 placeholder">
@@ -21,7 +21,18 @@
 
 					<div class="videoplayer">
 						<div id="">
-							<iframe width="860" height="360" src="{{ str_replace("watch?v=", "embed/", $media->url) }}" frameborder="0" allowfullscreen></iframe>
+							@if($media->site_name == 'YouTube')
+								<iframe src="{{ str_replace("watch?v=", "embed/", $media->url) }}" frameborder="0"
+								        allowfullscreen></iframe>
+							@elseif($media->site_name == 'Vimeo')
+								<iframe src="{{ str_replace("vimeo.com/", "player.vimeo.com/video/", $media->url) }}?portrait=0"
+								        webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+							@elseif($media->site_name == 'Dailymotion')
+								<iframe src="{{ str_replace("video", "embed/video", $media->url) }}"></iframe>
+							@else
+								<iframe src="{{ $media->url }}" frameborder="0"
+								        allowfullscreen></iframe>
+							@endif
 						</div>
 						<!--<img src="images/inner/inner-img.jpg" alt="">-->
 					</div>
@@ -36,16 +47,11 @@
 							<p>{{ $media->views }}</p>
 						</div>
 					</div>
-					<div class="views-num">
-						<div class="col-sm-12">
-							<p style="color: #0e0e0e">By/ {{ $media->author_name }}</p>
-						</div>
-					</div>
 				</div>
 				<div class="video-place">
 					<div class="col-sm-12">
-						<p>اليوتيوب</p>
-
+						<p style="color: #0e0e0e">By/ {{ $media->author_name }}</p>
+						<p>{{ $media->site_name }}</p>
 						<p>من </p>
 					</div>
 				</div>
@@ -97,7 +103,7 @@
 			</div>
 		</div>
 	</div>
-	@if(isset($ads->code_aside))
+	@if(!empty($ads->code_aside))
 		{{ $ads->code_aside }}
 	@else
 		<div class="col-sm-3 col-sm-3 placeholder right-ads">

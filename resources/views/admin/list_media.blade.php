@@ -24,7 +24,7 @@
 				<option value="All">All</option>
 				<option value="Egyptian">Egyptian</option>
 				<option value="Gulf">Gulf</option>
-				<option value="Foreigners">Foreigners</option>
+				<option value="world">World</option>
 				<option value="Sports">Sports</option>
 				<option value="Kids">Kids</option>
 				<option value="Animals">Animals</option>

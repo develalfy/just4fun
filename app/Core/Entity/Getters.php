@@ -45,7 +45,7 @@ class Getters
         $media = Media::where('category_id', $id)
             ->where('publish_date_time', '<=',Carbon::now())
             ->orderBy('id', 'desc')
-            ->paginate(20);
+            ->paginate(env('VIDEO_LIMIT', 10));
 
         return $media;
     }
@@ -56,7 +56,7 @@ class Getters
             'top' => 'المفضلة',
             'egyptian' => 'مصري',
             'gulf' => 'خليجي',
-            'foreigners' => 'اجنبي',
+            'world' => 'عالمي',
             'sports' => 'رياضة',
             'kids' => 'اطفال',
             'animals' => 'حيوانات'

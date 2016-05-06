@@ -34,6 +34,7 @@
 			<form action="{{ route('ads.post_add') }}" method="post" enctype="multipart/form-data">
 
 				<select id="category_id" name="category_id">
+					<option value="{{ env('MAIN_PAGE_ID', 7) }}">Main</option>
 					@foreach($categories as $category)
 						<option value="{{ $category->id }}">{{ $category->name }}</option>
 					@endforeach
