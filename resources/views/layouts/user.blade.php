@@ -88,7 +88,7 @@
 			<div class="cd-content" id="index-content">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="logo"><a href="{{ url('home') }}"><img src="{{ url('frontend/images/logo.png') }}" alt=""></a>
+						<div class="logo"><a href="{{ url('home') }}">Logo</a>
 						</div>
 						<div class="social-icon">
 							<ul>
@@ -105,7 +105,7 @@
 		</section>
 	</main>
 </div>
-<div id="footer"><p>powred by fkrahonline</p></div>
+<div id="footer"><p>powred by M.E.T Academy</p></div>
 <div id="cd-loading-bar" data-scale="1" class="index"></div> <!-- lateral loading bar -->
 <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('frontend/js/main.js') }}"></script> <!-- Resource jQuery -->

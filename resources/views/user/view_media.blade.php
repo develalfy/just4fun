@@ -6,11 +6,13 @@
 	@if(!empty($ads->code_top))
 		{{ $ads->code_top }}
 	@else
-		<div class="col-sm-9 col-sm-9 placeholder">
-			<div class="top-ads">
-				<img src="{{ url('uploads/' . $ads->image_top ) }}" alt="">
+		@if(!empty($ads->image_top))
+			<div class="col-sm-9 col-sm-9 placeholder">
+				<div class="top-ads">
+					<img src="{{ url('uploads/' . $ads->image_top ) }}" alt="">
+				</div>
 			</div>
-		</div>
+		@endif
 	@endif
 
 	<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-2 main">
@@ -106,11 +108,13 @@
 	@if(!empty($ads->code_aside))
 		{{ $ads->code_aside }}
 	@else
-		<div class="col-sm-3 col-sm-3 placeholder right-ads">
-			<div id="right-ads">
-				<img src="{{ url('uploads/' . $ads->image_aside ) }}" alt="">
+		@if(!empty($ads->image_top))
+			<div class="col-sm-3 col-sm-3 placeholder right-ads">
+				<div id="right-ads">
+					<img src="{{ url('uploads/' . $ads->image_aside ) }}" alt="">
+				</div>
 			</div>
-		</div>
+		@endif
 	@endif
 
 @endsection

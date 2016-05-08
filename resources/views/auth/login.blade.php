@@ -2,12 +2,12 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Just 4 mar7</title>
+	<title>Smile</title>
 	<link rel="stylesheet" href="{{ asset('backend/css/style.css') }}">
 </head>
 <body>
 <div id="login-container">
-	<div class="logo"><img src="{{ asset('backend/image/logo.png') }}" alt=""></div>
+	<div class="logo">Logo</div>
 	<div class="form">
 		<ul>
 			<form method="POST" action="{{ url('/login') }}">

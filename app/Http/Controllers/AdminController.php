@@ -155,7 +155,7 @@ class AdminController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            $request->session()->flash('alert-success', 'Errors Founded !!');
+            $request->session()->flash('alert-error', 'Errors Founded !!');
             return redirect()
                 ->route('ads.get_add')
                 ->withErrors($validator)
